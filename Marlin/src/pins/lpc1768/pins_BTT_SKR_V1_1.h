@@ -33,6 +33,10 @@
 #define Z_MIN_PIN                          P1_25
 #define Z_MAX_PIN                          P1_24
 
+#ifndef FIL_RUNOUT_PIN
+  #define FIL_RUNOUT_PIN   P1_24 //Z_MAX_PIN
+#endif
+
 //
 // Steppers
 //
