@@ -497,11 +497,13 @@
   #else
 
   // ET4 Autotune PID results
-    #define DEFAULT_Kp  53.72
-    #define DEFAULT_Ki   9.52
-    #define DEFAULT_Kd 75.74
+  #define DEFAULT_Kp 50.39
+  #define DEFAULT_Ki 10.00
+  #define DEFAULT_Kd 63.49
   #endif
 #endif // PIDTEMP
+
+
 
 //===========================================================================
 //====================== PID > Bed Temperature Control ======================
@@ -991,7 +993,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -25, -8, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { -25, -8, -1.10 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
