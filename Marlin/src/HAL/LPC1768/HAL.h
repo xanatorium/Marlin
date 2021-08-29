@@ -50,15 +50,9 @@ extern "C" volatile uint32_t _millis;
 //
 // Default graphical display delays
 //
-#ifndef ST7920_DELAY_1
-  #define ST7920_DELAY_1 DELAY_NS(600)
-#endif
-#ifndef ST7920_DELAY_2
-  #define ST7920_DELAY_2 DELAY_NS(750)
-#endif
-#ifndef ST7920_DELAY_3
-  #define ST7920_DELAY_3 DELAY_NS(750)
-#endif
+#define CPU_ST7920_DELAY_1 DELAY_NS(600)
+#define CPU_ST7920_DELAY_2 DELAY_NS(750)
+#define CPU_ST7920_DELAY_3 DELAY_NS(750)
 
 typedef ForwardSerial1Class< decltype(UsbSerial) > DefaultSerial1;
 extern DefaultSerial1 USBSerial;
@@ -198,7 +192,7 @@ constexpr pin_t GET_PIN_MAP_PIN(const int16_t index) {
 // Parse a G-code word into a pin index
 int16_t PARSED_PIN_INDEX(const char code, const int16_t dval);
 // P0.6 thru P0.9 are for the onboard SD card
-#define HAL_SENSITIVE_PINS P0_06, P0_07, P0_08, P0_09
+#define HAL_SENSITIVE_PINS P0_06, P0_07, P0_08, P0_09,
 
 #define HAL_IDLETASK 1
 void HAL_idletask();

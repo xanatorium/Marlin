@@ -31,7 +31,7 @@
 #define BOARD_INFO_NAME "MKS Robin PRO V2"
 
 // Avoid conflict with TIMER_TONE
-#define STEP_TIMER                            10
+#define STEP_TIMER 10
 
 // Use one of these or SDCard-based Emulation will be used
 //#define SRAM_EEPROM_EMULATION                   // Use BackSRAM-based EEPROM emulation
@@ -50,7 +50,7 @@
 //
 // Note: MKS Robin board is using SPI2 interface.
 //
-//#define SPI_MODULE                           2
+//#define SPI_MODULE 2
 
 //
 // Servos
@@ -147,24 +147,20 @@
   //#define E3_HARDWARE_SERIAL Serial1
   //#define E4_HARDWARE_SERIAL Serial1
 
-  //
-  // Software serial
-  //
-
   #define X_SERIAL_TX_PIN                   PD5
-  #define X_SERIAL_RX_PIN                   PD5
+  #define X_SERIAL_RX_PIN        X_SERIAL_TX_PIN
 
   #define Y_SERIAL_TX_PIN                   PD7
-  #define Y_SERIAL_RX_PIN                   PD7
+  #define Y_SERIAL_RX_PIN        Y_SERIAL_TX_PIN
 
   #define Z_SERIAL_TX_PIN                   PD4
-  #define Z_SERIAL_RX_PIN                   PD4
+  #define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
 
   #define E0_SERIAL_TX_PIN                  PD9
-  #define E0_SERIAL_RX_PIN                  PD9
+  #define E0_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
 
   #define E1_SERIAL_TX_PIN                  PD8
-  #define E1_SERIAL_RX_PIN                  PD8
+  #define E1_SERIAL_RX_PIN      E1_SERIAL_TX_PIN
 
   // Reduce baud rate to improve software serial reliability
   #define TMC_BAUD_RATE                    19200
@@ -189,21 +185,28 @@
 //
 // Thermocouples
 //
-//#define MAX6675_SS_PIN                    PE5   // TC1 - CS1
-//#define MAX6675_SS_PIN                    PE6   // TC2 - CS2
+//#define TEMP_0_CS_PIN                     PE5   // TC1 - CS1
+//#define TEMP_0_CS_PIN                     PE6   // TC2 - CS2
 
 //
 // Misc. Functions
 //
 //#define POWER_LOSS_PIN                    PA2   // PW_DET
 //#define PS_ON_PIN                         PA3   // PW_OFF
-//#define SUICIDE_PIN                       PB2   // Enable MKSPWC support
-//#define KILL_PIN                          PA2   // Enable MKSPWC support
-//#define KILL_PIN_INVERTING                true  // Enable MKSPWC support
-//#define LED_PIN                           PB2
+
+//
+// Power Supply Control
+//
+#if ENABLED(MKS_PWC)
+  #define SUICIDE_PIN                       PB2
+  #define KILL_PIN                          PA2
+  #define KILL_PIN_STATE                    LOW
+#else
+  #define LED_PIN                           PB2
+#endif
 
 #ifndef SDCARD_CONNECTION
-  #define SDCARD_CONNECTION              ONBOARD
+  #define SDCARD_CONNECTION ONBOARD
 #endif
 
 //#define USE_NEW_SPI_API 1
@@ -212,23 +215,19 @@
 // Onboard SD card
 // NOT compatible with LCD
 //
-// detect pin dont work when ONBOARD and NO_SD_HOST_DRIVE disabled
+// detect pin doesn't work when ONBOARD and NO_SD_HOST_DRIVE disabled
 #if !defined(SDCARD_CONNECTION) || SDCARD_CONNECTION == ONBOARD
-  #define CUSTOM_SPI_PINS
-  #if ENABLED(CUSTOM_SPI_PINS)
-
-    #if USE_NEW_SPI_API
-      #define SD_SPI MARLIN_SPI(HardwareSPI3, PC9)
-    #else
-      #define ENABLE_SPI3
-      #define SD_SS_PIN                     -1
-      #define SDSS                          PC9
-      #define SD_SCK_PIN                    PC10
-      #define SD_MISO_PIN                   PC11
-      #define SD_MOSI_PIN                   PC12
-    #endif
-    #define SD_DETECT_PIN                   PD12
+  #if USE_NEW_SPI_API
+    #define SD_SPI MARLIN_SPI(HardwareSPI3, PC9)
+  #else
+    #define ENABLE_SPI3
+    #define SD_SS_PIN                       -1
+    #define SDSS                            PC9
+    #define SD_SCK_PIN                      PC10
+    #define SD_MISO_PIN                     PC11
+    #define SD_MOSI_PIN                     PC12
   #endif
+  #define SD_DETECT_PIN                     PD12
 #endif
 
 /*
@@ -236,15 +235,12 @@
 // LCD SD
 //
 #if SDCARD_CONNECTION == LCD
-  #define CUSTOM_SPI_PINS
-  #if ENABLED(CUSTOM_SPI_PINS)
-    #define ENABLE_SPI1
-    #define SDSS                            PE10
-    #define SD_SCK_PIN                      PA5
-    #define SD_MISO_PIN                     PA6
-    #define SD_MOSI_PIN                     PA7
-    #define SD_DETECT_PIN                   PE12
-  #endif
+  #define ENABLE_SPI1
+  #define SDSS                              PE10
+  #define SD_SCK_PIN                        PA5
+  #define SD_MISO_PIN                       PA6
+  #define SD_MOSI_PIN                       PA7
+  #define SD_DETECT_PIN                     PE12
 #endif
 */
 
@@ -255,20 +251,20 @@
 #define SPI_DEVICE                             2
 #define SPI_FLASH_SIZE                 0x1000000
 #if ENABLED(SPI_FLASH)
-  #define W25QXX_CS_PIN                     PB12
-  #define W25QXX_MOSI_PIN                   PB15
-  #define W25QXX_MISO_PIN                   PB14
-  #define W25QXX_SCK_PIN                    PB13
+  #define SPI_FLASH_CS_PIN                  PB12
+  #define SPI_FLASH_MOSI_PIN                PB15
+  #define SPI_FLASH_MISO_PIN                PB14
+  #define SPI_FLASH_SCK_PIN                 PB13
 #endif
 
 /**
- *                _____                                             _____
+ *                -----                                             -----
  *   (BEEPER)PC5 | · · | PE13(BTN_ENC)             (SPI1 MISO) PA6 | · · | PA5 (SPI1 SCK)
  *  (LCD_EN)PD13 | · · | PC6(LCD_RS)                 (BTN_EN1) PE8 | · · | PE10 (SPI1 CS)
  *  (LCD_D4)PE14 | · · | PE15(LCD_D5)               (BTN_EN2) PE11 | · · | PA7 (SPI1 MOSI)
  *  (LCD_D6)PD11 | · · | PD10(LCD_D7)               (SPI DET) PE12 | · · | RESET
  *           GND | · · | 5V                                    GND | · · | 3.3V
- *                ￣￣￣                                             ￣￣￣
+ *                -----                                             -----
  *                EXP1                                               EXP2
  */
 
@@ -359,15 +355,9 @@
       #define LCD_PINS_D7                   PD10
     #endif
 
-    #ifndef ST7920_DELAY_1
-    #define ST7920_DELAY_1          DELAY_NS(96)
-    #endif
-    #ifndef ST7920_DELAY_2
-      #define ST7920_DELAY_2        DELAY_NS(48)
-    #endif
-    #ifndef ST7920_DELAY_3
-      #define ST7920_DELAY_3       DELAY_NS(600)
-    #endif
+    #define BOARD_ST7920_DELAY_1    DELAY_NS(96)
+    #define BOARD_ST7920_DELAY_2    DELAY_NS(48)
+    #define BOARD_ST7920_DELAY_3   DELAY_NS(600)
 
   #endif // !MKS_MINI_12864
 

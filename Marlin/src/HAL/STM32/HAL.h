@@ -38,6 +38,13 @@
 #include <stdint.h>
 
 //
+// Default graphical display delays
+//
+#define CPU_ST7920_DELAY_1 DELAY_NS(300)
+#define CPU_ST7920_DELAY_2 DELAY_NS( 40)
+#define CPU_ST7920_DELAY_3 DELAY_NS(340)
+
+//
 // Serial Ports
 //
 #ifdef USBCON
@@ -195,6 +202,7 @@ uint16_t HAL_adc_get_result();
 #ifdef STM32F1xx
   #define JTAG_DISABLE() AFIO_DBGAFR_CONFIG(AFIO_MAPR_SWJ_CFG_JTAGDISABLE)
   #define JTAGSWD_DISABLE() AFIO_DBGAFR_CONFIG(AFIO_MAPR_SWJ_CFG_DISABLE)
+  #define JTAGSWD_RESET() AFIO_DBGAFR_CONFIG(AFIO_MAPR_SWJ_CFG_RESET); // Reset: FULL SWD+JTAG
 #endif
 
 #define PLATFORM_M997_SUPPORT
