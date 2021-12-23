@@ -32,13 +32,13 @@
 
 #define BOARD_INFO_NAME "MKS Monster8 V1.x"
 
-// USB Flash Drive support
-#define HAS_OTG_USB_HOST_SUPPORT
+#define HAS_OTG_USB_HOST_SUPPORT                  // USB Flash Drive support
+#define USES_DIAG_JUMPERS
 
 //#define DISABLE_DEBUG
 
 // Avoid conflict with TIMER_TONE
-#define STEP_TIMER                            10
+#define STEP_TIMER 10
 
 // Use one of these or SDCard-based Emulation will be used
 //#define SRAM_EEPROM_EMULATION                   // Use BackSRAM-based EEPROM emulation
@@ -237,7 +237,7 @@
  *                  ------                                      ------
  *   (BEEPER) PB2  |10  9 | PE10 (BTN_ENC)    (SPI1 MISO) PA6  |10  9 | PA5 (SPI1 SCK)
  *   (LCD_EN) PE11 | 8  7 | PD10 (LCD_RS)       (BTN_EN1) PE9  | 8  7 | PA4 (SPI1 CS)
- *   (LCD_D4) PD9  | 6  5   PD8  (LCD_D5)       (BTN_EN2) PE8  | 6  5   PA7 (SPI1 MOSI)
+ *   (LCD_D4) PD9    6  5 | PD8  (LCD_D5)       (BTN_EN2) PE8    6  5 | PA7 (SPI1 MOSI)
  *   (LCD_D6) PE15 | 4  3 | PE7  (LCD_D7)       (SPI1_RS) PB11 | 4  3 | RESET
  *            GND  | 2  1 | 5V                             GND | 2  1 | 3.3V
  *                  ------                                      ------
@@ -346,7 +346,7 @@
     //#define DOGLCD_SCK             EXP2_09_PIN
     //#define DOGLCD_MOSI            EXP2_05_PIN
 
-  #elif ENABLED(MKS_MINI_12864_V3)
+  #elif ENABLED(FYSETC_MINI_12864_2_1)
     #define DOGLCD_CS                EXP1_08_PIN
     #define DOGLCD_A0                EXP1_07_PIN
     #define LCD_PINS_DC                DOGLCD_A0
@@ -369,9 +369,9 @@
       #define LCD_PINS_D7            EXP1_03_PIN
     #endif
 
-    #define BOARD_ST7920_DELAY_1    DELAY_NS(96)
-    #define BOARD_ST7920_DELAY_2    DELAY_NS(48)
-    #define BOARD_ST7920_DELAY_3   DELAY_NS(600)
+    #define BOARD_ST7920_DELAY_1              96
+    #define BOARD_ST7920_DELAY_2              48
+    #define BOARD_ST7920_DELAY_3             600
 
   #endif // !MKS_MINI_12864
 

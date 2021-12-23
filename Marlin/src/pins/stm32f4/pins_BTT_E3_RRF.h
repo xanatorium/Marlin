@@ -29,6 +29,8 @@
   #define BOARD_INFO_NAME "BTT E3 RRF"
 #endif
 
+#define USES_DIAG_JUMPERS
+
 // Add-on board for IDEX conversion
 //#define BTT_E3_RRF_IDEX_BOARD
 
@@ -207,11 +209,6 @@
     #define LCD_PINS_ENABLE                 PE11
     #define LCD_PINS_D4                     PE10
 
-    // CR10_STOCKDISPLAY default timing is too fast
-    #undef BOARD_ST7920_DELAY_1
-    #undef BOARD_ST7920_DELAY_2
-    #undef BOARD_ST7920_DELAY_3
-
   #elif ENABLED(ZONESTAR_LCD)                     // ANET A8 LCD Controller - Must convert to 3.3V - CONNECTING TO 5V WILL DAMAGE THE BOARD!
 
     #error "CAUTION! ZONESTAR_LCD requires wiring modifications. See 'pins_BTT_E3_RRF.h' for details. Comment out this line to continue."
@@ -282,10 +279,10 @@
   #endif
 
   // Alter timing for graphical display
-  #if ENABLED(U8GLIB_ST7920)
-    #define BOARD_ST7920_DELAY_1   DELAY_NS( 96)
-    #define BOARD_ST7920_DELAY_2   DELAY_NS( 48)
-    #define BOARD_ST7920_DELAY_3   DELAY_NS(600)
+  #if IS_U8GLIB_ST7920
+    #define BOARD_ST7920_DELAY_1              96
+    #define BOARD_ST7920_DELAY_2              48
+    #define BOARD_ST7920_DELAY_3             600
   #endif
 
 #endif // HAS_WIRED_LCD

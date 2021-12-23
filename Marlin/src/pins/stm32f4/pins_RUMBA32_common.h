@@ -45,8 +45,8 @@
 //              This will be difficult to solve from the Arduino IDE, without modifying the RUMBA32 variant
 //              included with the STM32 framework.
 
-#define STEP_TIMER                            10
-#define TEMP_TIMER                            14
+#define STEP_TIMER 10
+#define TEMP_TIMER 14
 
 //
 // Limit Switches
@@ -172,8 +172,8 @@
 #endif // HAS_WIRED_LCD
 
 // Alter timing for graphical display
-#if ENABLED(U8GLIB_ST7920)
-  #define BOARD_ST7920_DELAY_1     DELAY_NS( 96)
-  #define BOARD_ST7920_DELAY_2     DELAY_NS( 48)
-  #define BOARD_ST7920_DELAY_3     DELAY_NS(640)
+#if IS_U8GLIB_ST7920
+  #define BOARD_ST7920_DELAY_1                96
+  #define BOARD_ST7920_DELAY_2                48
+  #define BOARD_ST7920_DELAY_3               640
 #endif

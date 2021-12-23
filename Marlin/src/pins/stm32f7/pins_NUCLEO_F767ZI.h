@@ -57,8 +57,8 @@
  * TIM14 - TEMP_TIMER (Marlin)
  *
  */
-#define STEP_TIMER                             4
-#define TEMP_TIMER                            14
+#define STEP_TIMER  4
+#define TEMP_TIMER 14
 
 /**
  * These pin assignments are arbitrary and intending for testing purposes.
@@ -191,7 +191,7 @@
   #define BTN_EN1                           PF13  // BTN_EN1
   #define BTN_EN2                           PE9   // BTN_EN2
 
-  #define BOARD_ST7920_DELAY_1  DELAY_NS(125)
-  #define BOARD_ST7920_DELAY_2  DELAY_NS(63)
-  #define BOARD_ST7920_DELAY_3  DELAY_NS(780)
+  #define BOARD_ST7920_DELAY_1               125
+  #define BOARD_ST7920_DELAY_2                63
+  #define BOARD_ST7920_DELAY_3               780
 #endif
